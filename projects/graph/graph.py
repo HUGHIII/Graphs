@@ -13,26 +13,41 @@ class Graph:
         """
         Add a vertex to the graph.
         """
-        pass  # TODO
+        self.vertices[vertex_id] = set()
 
     def add_edge(self, v1, v2):
         """
         Add a directed edge to the graph.
         """
-        pass  # TODO
+        if v1 and v2 in self.vertices:
+            self.vertices[v1].add(v2)
+        else:
+            raise IndexError('Missing vertex')
 
     def get_neighbors(self, vertex_id):
         """
         Get all neighbors (edges) of a vertex.
         """
-        pass  # TODO
+        return self.vertices[vertex_id]
 
     def bft(self, starting_vertex):
         """
         Print each vertex in breadth-first order
         beginning from starting_vertex.
         """
-        pass  # TODO
+        q = Queue()
+        visited = set()
+        q.enqueue(starting_vertex)
+        
+        while q.size():
+            v = q.dequeue()
+            if v not in visited:
+                visited.add(v)
+                print(v)
+
+                for EAneighbor in self.get_neighbors(v):
+                    q.enqueue(EAneighbor)
+
 
     def dft(self, starting_vertex):
         """
@@ -75,6 +90,21 @@ class Graph:
         This should be done using recursion.
         """
         pass  # TODO
+
+
+# g = Graph()
+
+# g.add_vertex('0')
+# g.add_vertex('1')
+# g.add_vertex('2')
+# g.add_vertex('3')
+# g.add_edge('0', '1')
+# g.add_edge('1', '0')
+# g.add_edge('0', '3')
+# g.add_edge('3', '0')
+# print(g.vertices)
+# print(g.get_neighbors("0"))
+
 
 if __name__ == '__main__':
     graph = Graph()  # Instantiate your graph
