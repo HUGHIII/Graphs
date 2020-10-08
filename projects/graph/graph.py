@@ -90,7 +90,8 @@ class Graph:
 
         This should be done using recursion.
         """
-        pass  # TODO
+        print(starting_vertex)
+
 
     def bfs(self, starting_vertex, destination_vertex):
         """
@@ -119,7 +120,8 @@ class Graph:
                 visited.add(v)
 
                 for EAneighbor in self.get_neighbors(v):
-                    q.enqueue(path + [EAneighbor])
+                    new_path = path + [EAneighbor]
+                    q.enqueue(new_path)
 
 
 
@@ -136,6 +138,8 @@ class Graph:
         while s.size():
             path = s.pop()
             v = path[-1]
+            print(path)
+            print(v)
             if v not in visited:
                 visited.add(v)
                 if v == destination_vertex:
