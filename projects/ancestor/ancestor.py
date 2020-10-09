@@ -1,5 +1,5 @@
 
-from stack import Stack
+from stackAndQ import Stack, Queue
 
 
 # wherever child/starting node is found, get parent and see if that parent is a child anywhere, if so repeat. if you still have two left with no parents return lower value
@@ -10,12 +10,25 @@ from stack import Stack
 
 
 def earliest_ancestor(ancestors, starting_node):
-    s = Stack()
+    q = Queue()
     vis = set()
-    s.push([starting_node])
-
-    while s.size():
-        path = s.pop()
+    q.enqueue([starting_node])
+    allPaths = []
+    # for e in ancestors:
+    #    
+    #     if e[1] != starting_node:
+    #         return -1
+    cache = {}
+    for ancestor in ancestors: 
+        parent = ancestor[0]
+        child = ancestor[1]
+        if child not in  cache:
+            cache[child] = parent
+    if starting_node not in cache:
+        return -1 
+              
+    while q.size():
+        path = q.dequeue()
         v = path[-1]
         print(path)
         print(v)
@@ -24,9 +37,22 @@ def earliest_ancestor(ancestors, starting_node):
         
             for e in ancestors:
                 if e[1] == v:
-                    path.append(e[0])
-                    s.push(path)
-            
+                    newList = list(path)
+                    newList.append(e[0])
+                    q.enqueue(newList)
+                    allPaths.append(newList)
+           
+  
+    if len(allPaths[-1]) == len(allPaths[-2]):
+        twoOldest = []
+        for i in range(len(allPaths) -2, len(allPaths)):
+            twoOldest.append(allPaths[i][-1])
+            twoOldest.sort()
+            return twoOldest[0]
+    if len(allPaths[-1]) > len(allPaths[-2]):
+        return allPaths[-1][-1]
+
+
 
 
 
@@ -41,7 +67,7 @@ def earliest_ancestor(ancestors, starting_node):
 
 test_ancestors = [(1, 3), (2, 3), (3, 6), (5, 6), (5, 7), (4, 5), (4, 8), (8, 9), (11, 8), (10, 1)]
 
-print(earliest_ancestor(test_ancestors,6))
+print(earliest_ancestor(test_ancestors,1))
 
 # ```
 #  10
