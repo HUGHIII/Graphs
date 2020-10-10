@@ -18,14 +18,16 @@ def earliest_ancestor(ancestors, starting_node):
     #    
     #     if e[1] != starting_node:
     #         return -1
-    cache = {}
-    for ancestor in ancestors: 
-        parent = ancestor[0]
-        child = ancestor[1]
-        if child not in  cache:
-            cache[child] = parent
-    if starting_node not in cache:
-        return -1 
+    # cache = {}
+    # for ancestor in ancestors: 
+    #     parent = ancestor[0]
+    #     child = ancestor[1]
+    #     if child not in  cache:
+    #         cache[child] = parent
+    # if starting_node not in cache:
+    #     return -1 
+
+    # REFACTOR BY USING AN ACTUAL GRAPH CLASS YOU GOOF
               
     while q.size():
         path = q.dequeue()
